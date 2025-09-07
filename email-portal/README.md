@@ -1,8 +1,8 @@
 # Email Portal - Self-Service Email Account Management
 
-A web application that provides a self-service portal for customers to request and manage email accounts across multiple domains, integrated with DirectAdmin control panel.
+A modern monorepo application built with Turborepo that provides a self-service portal for customers to request and manage email accounts across multiple domains, integrated with DirectAdmin control panel.
 
-## Features
+## 🚀 Features
 
 ### User Features
 - **Self-Service Email Creation**: Users can create email accounts on pre-approved domains
@@ -17,20 +17,34 @@ A web application that provides a self-service portal for customers to request a
 - **Role-Based Access Control**: Separate permissions for users and administrators
 
 ### Technical Features
+- **Turborepo Monorepo**: Efficient builds and development with Turborepo
+- **Shared Packages**: Shared types, ESLint, and TypeScript configurations
 - **DirectAdmin Integration**: Automated email account creation via DirectAdmin API
 - **JWT Authentication**: Secure token-based authentication system
 - **RESTful API**: Well-structured backend API
 - **Modern UI**: Responsive Material-UI based interface
 - **Docker Support**: Easy deployment with Docker Compose
 
-## Technology Stack
+## 📦 What's Inside?
+
+This Turborepo includes the following packages/apps:
+
+### Apps
+- `apps/backend`: Node.js Express API server
+- `apps/frontend`: React TypeScript web application
+
+### Packages
+- `@email-portal/shared-types`: Shared TypeScript type definitions
+- `@email-portal/eslint-config`: Shared ESLint configurations
+- `@email-portal/tsconfig`: Shared TypeScript configurations
+
+## 🛠 Technology Stack
 
 ### Backend
 - Node.js with Express.js
 - MongoDB for data storage
 - JWT for authentication
 - DirectAdmin API integration
-- TypeScript support
 
 ### Frontend
 - React with TypeScript
@@ -39,14 +53,20 @@ A web application that provides a self-service portal for customers to request a
 - React Query for API state management
 - React Hook Form for form handling
 
-## Prerequisites
+### Build System
+- Turborepo for monorepo management
+- npm workspaces for dependency management
+- Docker for containerization
+
+## 📋 Prerequisites
 
 - Node.js (v14 or higher)
+- npm (v7 or higher) - required for workspaces
 - MongoDB (v4.4 or higher)
 - DirectAdmin server with API access
 - Docker and Docker Compose (for containerized deployment)
 
-## Installation
+## 🚀 Getting Started
 
 ### Using Docker (Recommended)
 
@@ -59,6 +79,7 @@ cd email-portal
 2. Create environment file:
 ```bash
 cp .env.example .env
+cp apps/backend/.env.example apps/backend/.env
 ```
 
 3. Configure your DirectAdmin credentials in `.env`:
@@ -85,61 +106,144 @@ The application will be available at:
 
 ### Manual Installation
 
-#### Backend Setup
-
-1. Navigate to backend directory:
+1. Install dependencies:
 ```bash
-cd backend
 npm install
 ```
 
-2. Create `.env` file:
+2. Set up environment files:
 ```bash
 cp .env.example .env
+cp apps/backend/.env.example apps/backend/.env
+cp apps/frontend/.env.example apps/frontend/.env
 ```
 
-3. Configure environment variables in `.env`
+3. Configure environment variables
 
-4. Start MongoDB locally
+4. Build shared packages:
+```bash
+npm run build --workspace=@email-portal/shared-types
+```
 
-5. Seed admin user:
+5. Start MongoDB locally
+
+6. Seed admin user:
 ```bash
 npm run seed:admin
 ```
 
-6. Start the backend:
+7. Start development servers:
 ```bash
 npm run dev
 ```
 
-#### Frontend Setup
+## 🏗 Development
 
-1. Navigate to frontend directory:
+### Available Scripts
+
+In the project root:
+
+- `npm run dev` - Start all apps in development mode
+- `npm run build` - Build all apps and packages
+- `npm run lint` - Lint all apps and packages
+- `npm run test` - Run tests in all apps and packages
+- `npm run clean` - Clean all build artifacts
+
+### Working with Turborepo
+
+To run commands for specific apps:
 ```bash
-cd frontend
-npm install
+# Run only the backend
+npm run dev --filter=backend
+
+# Build only the frontend
+npm run build --filter=frontend
+
+# Run a specific script in a workspace
+npm run seed:admin
 ```
 
-2. Create `.env` file:
+### Adding Dependencies
+
+To add dependencies to specific workspaces:
 ```bash
-cp .env.example .env
+# Add to backend
+npm install express --workspace=@email-portal/backend
+
+# Add to frontend
+npm install axios --workspace=@email-portal/frontend
+
+# Add to shared-types
+npm install typescript --workspace=@email-portal/shared-types --save-dev
 ```
 
-3. Start the frontend:
+## 🐳 Docker Deployment
+
+The project includes Docker configuration optimized for Turborepo:
+
+1. Build and start containers:
 ```bash
-npm start
+docker-compose up -d --build
 ```
 
-## Default Admin Credentials
+2. View logs:
+```bash
+docker-compose logs -f
+```
 
-After seeding, use these credentials:
-- Username: admin
-- Email: admin@example.com
-- Password: admin123456
+3. Stop containers:
+```bash
+docker-compose down
+```
 
-**Important:** Change the admin password immediately after first login!
+### Production Deployment
 
-## API Documentation
+For production deployment:
+
+1. Update environment variables for production
+2. Use Docker Swarm or Kubernetes for orchestration
+3. Set up proper SSL/TLS certificates
+4. Configure reverse proxy (nginx/traefik)
+5. Set up MongoDB replica sets for high availability
+
+## 📁 Project Structure
+
+```
+email-portal/
+├── apps/
+│   ├── backend/          # Express.js API server
+│   └── frontend/         # React application
+├── packages/
+│   ├── eslint-config/    # Shared ESLint configuration
+│   ├── shared-types/     # Shared TypeScript types
+│   └── tsconfig/         # Shared TypeScript configuration
+├── docker-compose.yml    # Docker Compose configuration
+├── turbo.json           # Turborepo configuration
+├── package.json         # Root package.json with workspaces
+└── README.md           # This file
+```
+
+## 🔒 Security Considerations
+
+1. **Environment Variables**: Never commit `.env` files to version control
+2. **JWT Secret**: Use a strong, random JWT secret in production
+3. **DirectAdmin Credentials**: Store securely and use minimal required permissions
+4. **HTTPS**: Always use HTTPS in production
+5. **Database Security**: Secure MongoDB with authentication and network restrictions
+
+## 🧪 Testing
+
+Run tests across all packages:
+```bash
+npm run test
+```
+
+Run tests for specific app:
+```bash
+npm run test --filter=backend
+```
+
+## 📝 API Documentation
 
 ### Authentication Endpoints
 - `POST /api/auth/register` - Register new user
@@ -166,59 +270,7 @@ After seeding, use these credentials:
 - `PUT /api/users/:id` - Update user
 - `DELETE /api/users/:id` - Delete user
 
-## Security Considerations
-
-1. **Environment Variables**: Never commit `.env` files to version control
-2. **JWT Secret**: Use a strong, random JWT secret in production
-3. **DirectAdmin Credentials**: Store securely and use minimal required permissions
-4. **HTTPS**: Always use HTTPS in production
-5. **Database Security**: Secure MongoDB with authentication and network restrictions
-
-## Deployment
-
-### Production Deployment with Docker
-
-1. Update `docker-compose.yml` for production:
-   - Use environment-specific configurations
-   - Set up proper volumes for data persistence
-   - Configure reverse proxy (nginx/traefik)
-
-2. Use Docker secrets for sensitive data:
-```bash
-docker secret create directadmin_password ./secret_file
-```
-
-3. Set up SSL/TLS certificates
-
-4. Configure backup strategies for MongoDB data
-
-### Scaling Considerations
-
-- Use MongoDB replica sets for high availability
-- Implement Redis for session management
-- Use load balancers for multiple backend instances
-- Configure CDN for static assets
-
-## Troubleshooting
-
-### Common Issues
-
-1. **DirectAdmin Connection Failed**
-   - Verify DirectAdmin URL and credentials
-   - Check network connectivity
-   - Ensure DirectAdmin API is enabled
-
-2. **MongoDB Connection Error**
-   - Verify MongoDB is running
-   - Check connection string
-   - Ensure proper authentication
-
-3. **Email Creation Fails**
-   - Check domain exists in DirectAdmin
-   - Verify user has creation permissions
-   - Check DirectAdmin quotas
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create feature branch (`git checkout -b feature/AmazingFeature`)
@@ -226,18 +278,26 @@ docker secret create directadmin_password ./secret_file
 4. Push to branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
+### Development Guidelines
+
+- Follow the existing code style
+- Write tests for new features
+- Update documentation as needed
+- Ensure all tests pass before submitting PR
+- Keep commits atomic and well-described
+
+## 📜 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Support
+## 🙋‍♀️ Support
 
 For issues and questions:
 - Create an issue in the repository
 - Contact the development team
 - Check the documentation
 
-## Roadmap
+## 🗺 Roadmap
 
 - [ ] Email template management
 - [ ] Bulk email creation
@@ -247,3 +307,5 @@ For issues and questions:
 - [ ] Advanced reporting and analytics
 - [ ] API rate limiting
 - [ ] Two-factor authentication
+- [ ] Webhook support for email events
+- [ ] Email account suspension/reactivation

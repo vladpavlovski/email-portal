@@ -18,8 +18,8 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: apps/backend/Dockerfile
     container_name: email-portal-backend
     restart: always
     environment:
@@ -41,12 +41,12 @@ services:
     networks:
       - email-portal-network
     volumes:
-      - ./backend/.env:/app/.env:ro
+      - ./apps/backend/.env:/app/.env:ro
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: apps/frontend/Dockerfile
       args:
         REACT_APP_API_URL: http://localhost:5000/api
     container_name: email-portal-frontend

@@ -37,7 +37,7 @@ sleep 10
 
 # Seed admin user
 echo "Seeding admin user..."
-docker-compose exec backend npm run seed:admin
+docker-compose exec backend sh -c "cd /app && npm run seed:admin"
 
 echo ""
 echo "========================="

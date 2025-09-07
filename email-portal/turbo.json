@@ -1,0 +1,32 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "build/**"],
+      "env": ["NODE_ENV", "REACT_APP_API_URL"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    "lint": {
+      "outputs": []
+    },
+    "test": {
+      "outputs": ["coverage/**"],
+      "dependsOn": []
+    },
+    "seed:admin": {
+      "cache": false
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}
