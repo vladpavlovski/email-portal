@@ -1,135 +1,118 @@
-# Turborepo starter
+# MailPortal - Email Self-Service Portal
 
-This Turborepo starter is maintained by the Turborepo core team.
+MailPortal is a modern web application that allows users to create and manage email accounts through a self-service portal integrated with DirectAdmin. Built as a monorepo using Turborepo, it features a React frontend and Node.js/Express backend with PostgreSQL database.
 
-## Using this example
+## Features
 
-Run the following command:
+### User Features
+- **Self-Service Email Creation**: Users can create email accounts on pre-approved domains
+- **Email Account Management**: View all created email accounts with metadata
+- **Secure Password Generation**: Automatically generates strong passwords for new accounts
+- **User Dashboard**: Clean, responsive interface for managing email accounts
 
-```sh
-npx create-turbo@latest
-```
+### Admin Features
+- **User Management**: Enable/disable user accounts and email creation permissions
+- **Domain Management**: Add, edit, and manage available domains for email creation
+- **Comprehensive Overview**: View all email accounts across the system
+- **Role-Based Access Control**: Secure admin-only features
 
-## What's inside?
+### Technical Features
+- **DirectAdmin Integration**: Automated email account creation via DirectAdmin API
+- **JWT Authentication**: Secure token-based authentication
+- **Docker Support**: Ready for deployment with Docker and Docker Compose
+- **Monorepo Architecture**: Organized codebase using Turborepo
+- **TypeScript**: Full type safety across frontend and backend
+- **Responsive Design**: Modern UI with Tailwind CSS
 
-This Turborepo includes the following packages/apps:
+## Tech Stack
 
-### Apps and Packages
+- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, React Router, React Query
+- **Backend**: Node.js, Express, TypeScript, PostgreSQL
+- **Authentication**: JWT tokens with role-based access control
+- **Monorepo**: Turborepo for efficient builds and development
+- **Deployment**: Docker, Docker Compose, optimized for Coolify
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+## Quick Start
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### Using Docker (Recommended)
 
-### Utilities
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd mailportal
+   ```
 
-This Turborepo has some additional tools already setup for you:
+2. **Set up environment**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your DirectAdmin credentials
+   ```
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+3. **Initialize database with admin user**
+   ```bash
+   ./scripts/init-db.sh
+   # This will create the database and generate admin credentials
+   ```
 
-### Build
+4. **Start the application**
+   ```bash
+   docker-compose up -d
+   ```
 
-To build all apps and packages, run the following command:
+5. **Access the application**
+   - Frontend: http://localhost
+   - Backend API: http://localhost:5000
 
-```
-cd my-turborepo
+### Manual Setup
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
+See [docs/SETUP.md](docs/SETUP.md) for detailed manual setup instructions.
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
+## Documentation
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+- [Setup Guide](docs/SETUP.md) - Detailed setup instructions
+- [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment options
+- [API Documentation](docs/API.md) - Complete API reference
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+## Project Structure
 
 ```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+mailportal/
+├── apps/
+│   ├── backend/          # Express API server
+│   └── frontend/         # React application
+├── packages/
+│   ├── shared/          # Shared types and schemas
+│   ├── ui/              # Shared UI components
+│   ├── eslint-config/   # Shared ESLint configuration
+│   └── typescript-config/ # Shared TypeScript configuration
+├── scripts/             # Utility scripts
+├── docs/               # Documentation
+├── docker-compose.yml   # Development Docker setup
+└── docker-compose.prod.yml # Production Docker setup
 ```
 
-### Remote Caching
+## Default Login
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+After running `./scripts/init-db.sh`, you'll receive admin credentials. The default admin email is:
+- Email: `admin@mailportal.local`
+- Password: (generated during setup)
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+## Security Notes
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+- Always change default passwords in production
+- Use strong JWT secrets (generate with `openssl rand -base64 32`)
+- Enable HTTPS in production environments
+- Keep DirectAdmin credentials secure
+- Regular security updates recommended
 
-```
-cd my-turborepo
+## Contributing
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
+## License
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+This project is licensed under the MIT License.
