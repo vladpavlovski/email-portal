@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createDomainSchema } from '@mailportal/shared';
 import { domainApi } from '@/lib/api';
+import { z } from 'zod';
 import { 
   Globe, 
   Plus, 
@@ -14,10 +15,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 
-type CreateDomainForm = {
-  name: string;
-  isActive: boolean;
-};
+type CreateDomainForm = z.infer<typeof createDomainSchema>;
 
 export function DomainManagement() {
   const queryClient = useQueryClient();

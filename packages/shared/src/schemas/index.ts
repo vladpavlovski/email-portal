@@ -25,7 +25,7 @@ export const createDomainSchema = z.object({
   name: z.string()
     .min(3)
     .regex(/^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/, 'Invalid domain name format'),
-  isActive: z.boolean().default(true),
+  isActive: z.boolean(),
 });
 
 export const registerUserSchema = z.object({
