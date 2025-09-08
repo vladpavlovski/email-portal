@@ -5,7 +5,7 @@ import { validate } from '../middleware/validation.middleware';
 import { updateUserSchema } from '@mailportal/shared';
 import { UserRole } from '@mailportal/shared';
 
-const router = Router();
+const router: Router = Router();
 
 // All routes require admin authentication
 router.use(authenticate, authorize(UserRole.ADMIN));

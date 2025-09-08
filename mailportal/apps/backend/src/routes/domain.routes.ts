@@ -6,7 +6,7 @@ import { createDomainSchema } from '@mailportal/shared';
 import { UserRole } from '@mailportal/shared';
 import { z } from 'zod';
 
-const router = Router();
+const router: Router = Router();
 
 // Public route for users to see active domains
 router.get('/', authenticate, DomainController.getAllDomains);

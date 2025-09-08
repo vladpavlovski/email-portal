@@ -35,7 +35,8 @@ export class AuthController {
         role: user.role,
       };
 
-      const token = jwt.sign(payload, config.jwt.secret, {
+      // @ts-ignore - JWT type issue with expiresIn
+      const token = jwt.sign(payload, config.jwt.secret as string, {
         expiresIn: config.jwt.expiresIn,
       });
 
@@ -78,7 +79,8 @@ export class AuthController {
         role: user.role,
       };
 
-      const token = jwt.sign(payload, config.jwt.secret, {
+      // @ts-ignore - JWT type issue with expiresIn
+      const token = jwt.sign(payload, config.jwt.secret as string, {
         expiresIn: config.jwt.expiresIn,
       });
 

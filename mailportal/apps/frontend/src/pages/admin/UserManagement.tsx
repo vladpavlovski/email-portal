@@ -9,7 +9,7 @@ import {
   UserCheck, 
   UserX, 
   Mail,
-  MailOff 
+  MailX 
 } from 'lucide-react';
 
 export function UserManagement() {
@@ -215,7 +215,7 @@ export function UserManagement() {
                               >
                                 {user.canCreateEmails ? (
                                   <>
-                                    <MailOff className="mr-3 h-4 w-4" />
+                                    <MailX className="mr-3 h-4 w-4" />
                                     Disable Email Creation
                                   </>
                                 ) : (
