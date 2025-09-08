@@ -6,10 +6,11 @@ export function validate(schema: ZodSchema) {
     try {
       req.body = await schema.parseAsync(req.body);
       next();
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const zodError = error as { errors?: unknown[] };
       return res.status(400).json({
         error: 'Validation failed',
-        details: error.errors,
+        details: zodError.errors,
       });
     }
   };

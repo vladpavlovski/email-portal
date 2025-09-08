@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { emailAccountApi, userApi, domainApi } from '@/lib/api';
-import { Mail, Search, Filter } from 'lucide-react';
+import { Mail, Search } from 'lucide-react';
 
 export function AllEmailAccounts() {
   const [searchTerm, setSearchTerm] = useState('');

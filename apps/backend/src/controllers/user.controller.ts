@@ -8,7 +8,7 @@ export class UserController {
     try {
       const { role, isActive } = req.query;
       
-      const filters: any = {};
+      const filters: { role?: UserRole; isActive?: boolean } = {};
       if (role && Object.values(UserRole).includes(role as UserRole)) {
         filters.role = role as UserRole;
       }
@@ -50,7 +50,7 @@ export class UserController {
         return res.status(403).json({ error: 'Cannot modify your own active status' });
       }
 
-      const updateData: any = {};
+      const updateData: { firstName?: string; lastName?: string; isActive?: boolean; canCreateEmails?: boolean } = {};
       if (firstName !== undefined) updateData.firstName = firstName;
       if (lastName !== undefined) updateData.lastName = lastName;
       if (isActive !== undefined) updateData.isActive = isActive;

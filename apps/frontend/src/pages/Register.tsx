@@ -31,8 +31,9 @@ export function Register() {
       setError(null);
       await registerUser(data);
       navigate('/dashboard');
-    } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to register');
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { error?: string } } };
+      setError(error.response?.data?.error || 'Failed to register');
     }
   };
 

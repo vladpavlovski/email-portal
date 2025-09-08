@@ -29,8 +29,9 @@ export function Login() {
       setError(null);
       await login(data.email, data.password);
       navigate('/dashboard');
-    } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to login');
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { error?: string } } };
+      setError(error.response?.data?.error || 'Failed to login');
     }
   };
 

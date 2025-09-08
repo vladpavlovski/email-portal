@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createDomainSchema } from '@mailportal/shared';
+import { createDomainSchema, Domain } from '@mailportal/shared';
 import { domainApi } from '@/lib/api';
 import { z } from 'zod';
 import { 
   Globe, 
   Plus, 
-  Edit2, 
   Trash2, 
   Check, 
   X,
@@ -20,7 +19,6 @@ type CreateDomainForm = z.infer<typeof createDomainSchema>;
 export function DomainManagement() {
   const queryClient = useQueryClient();
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [editingDomain, setEditingDomain] = useState<string | null>(null);
 
   const { data: domains, isLoading } = useQuery({
     queryKey: ['domains', 'all'],
@@ -49,11 +47,10 @@ export function DomainManagement() {
   });
 
   const updateDomainMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: any }) => 
+    mutationFn: ({ id, data }: { id: string; data: { isActive: boolean } }) => 
       domainApi.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['domains'] });
-      setEditingDomain(null);
     },
   });
 
@@ -68,7 +65,7 @@ export function DomainManagement() {
     createDomainMutation.mutate(data);
   };
 
-  const handleToggleStatus = (domain: any) => {
+  const handleToggleStatus = (domain: Domain) => {
     updateDomainMutation.mutate({
       id: domain.id,
       data: { isActive: !domain.isActive },
@@ -117,7 +114,7 @@ export function DomainManagement() {
                     </div>
                     <div className="ml-3">
                       <p className="text-sm text-red-800">
-                        {(createDomainMutation.error as any)?.response?.data?.error ||
+                        {(createDomainMutation.error as { response?: { data?: { error?: string } } })?.response?.data?.error ||
                           'Failed to create domain'}
                       </p>
                     </div>

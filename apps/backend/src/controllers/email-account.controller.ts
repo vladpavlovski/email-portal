@@ -25,7 +25,7 @@ export class EmailAccountController {
     try {
       const { userId, domainId } = req.query;
       
-      const filters: any = {};
+      const filters: { userId?: string; domainId?: string } = {};
       if (userId) filters.userId = userId as string;
       if (domainId) filters.domainId = domainId as string;
 
@@ -86,11 +86,12 @@ export class EmailAccountController {
           password,
           quota: 1024, // 1GB default
         });
-      } catch (daError: any) {
+      } catch (daError: unknown) {
         console.error('DirectAdmin error:', daError);
+        const error = daError as { message?: string };
         return res.status(500).json({ 
           error: 'Failed to create email account in DirectAdmin',
-          details: daError.message 
+          details: error.message 
         });
       }
 

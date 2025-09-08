@@ -35,13 +35,14 @@ export class AuthController {
         role: user.role,
       };
 
-      // @ts-ignore - JWT type issue with expiresIn
+      // @ts-expect-error - JWT type issue with expiresIn
       const token = jwt.sign(payload, config.jwt.secret as string, {
         expiresIn: config.jwt.expiresIn,
       });
 
       // Remove password hash from response
-      const { passwordHash, ...userWithoutPassword } = user;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { passwordHash: _passwordHash, ...userWithoutPassword } = user;
 
       res.json({
         token,
@@ -79,7 +80,7 @@ export class AuthController {
         role: user.role,
       };
 
-      // @ts-ignore - JWT type issue with expiresIn
+      // @ts-expect-error - JWT type issue with expiresIn
       const token = jwt.sign(payload, config.jwt.secret as string, {
         expiresIn: config.jwt.expiresIn,
       });

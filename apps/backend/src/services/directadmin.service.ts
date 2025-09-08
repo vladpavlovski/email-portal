@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { config } from '../config/config';
-import crypto from 'crypto';
 
 export interface DirectAdminEmailData {
   user: string;
@@ -80,19 +79,20 @@ export class DirectAdminService {
         const errorMessage = errorMatch ? decodeURIComponent(errorMatch[1]) : 'Unknown DirectAdmin error';
         throw new Error(errorMessage);
       }
-    } catch (error: any) {
-      console.error('DirectAdmin API error:', error.message);
+    } catch (error: unknown) {
+      const err = error as { message?: string; response?: { status?: number } };
+      console.error('DirectAdmin API error:', err.message);
       
       // Handle specific errors
-      if (error.response?.status === 401) {
+      if (err.response?.status === 401) {
         throw new Error('DirectAdmin authentication failed');
       }
       
-      if (error.message.includes('already exists')) {
+      if (err.message?.includes('already exists')) {
         throw new Error('Email account already exists');
       }
       
-      throw new Error(`Failed to create email account: ${error.message}`);
+      throw new Error(`Failed to create email account: ${err.message}`);
     }
   }
 
@@ -130,9 +130,10 @@ export class DirectAdminService {
         const errorMessage = errorMatch ? decodeURIComponent(errorMatch[1]) : 'Unknown DirectAdmin error';
         throw new Error(errorMessage);
       }
-    } catch (error: any) {
-      console.error('DirectAdmin API error:', error.message);
-      throw new Error(`Failed to delete email account: ${error.message}`);
+    } catch (error: unknown) {
+      const err = error as { message?: string; response?: { status?: number } };
+      console.error('DirectAdmin API error:', err.message);
+      throw new Error(`Failed to delete email account: ${err.message}`);
     }
   }
 

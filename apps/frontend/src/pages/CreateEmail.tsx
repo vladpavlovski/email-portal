@@ -153,7 +153,7 @@ export function CreateEmail() {
                   </div>
                   <div className="ml-3">
                     <p className="text-sm text-red-800">
-                      {(createEmailMutation.error as any)?.response?.data?.error ||
+                      {(createEmailMutation.error as { response?: { data?: { error?: string } } })?.response?.data?.error ||
                         'Failed to create email account'}
                     </p>
                   </div>

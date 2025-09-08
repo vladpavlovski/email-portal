@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const profile = await authApi.getProfile();
       setUser(profile);
-    } catch (error) {
+    } catch {
       localStorage.removeItem('token');
     } finally {
       setIsLoading(false);

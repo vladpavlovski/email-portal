@@ -61,7 +61,7 @@ export class DomainController {
         }
       }
 
-      const updateData: any = {};
+      const updateData: { name?: string; isActive?: boolean } = {};
       if (name !== undefined) updateData.name = name;
       if (isActive !== undefined) updateData.isActive = isActive;
 

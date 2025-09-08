@@ -22,6 +22,12 @@ export const config = [
     },
   },
   {
+    files: ["**/models/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
+  {
     plugins: {
       onlyWarn,
     },

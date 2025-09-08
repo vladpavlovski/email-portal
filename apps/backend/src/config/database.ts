@@ -12,17 +12,17 @@ export const pool = new Pool({
   connectionTimeoutMillis: 2000,
 });
 
-export async function query<T = any>(text: string, params?: any[]): Promise<T[]> {
+export async function query<T = unknown>(text: string, params?: unknown[]): Promise<T[]> {
   const result = await pool.query(text, params);
   return result.rows;
 }
 
-export async function getOne<T = any>(text: string, params?: any[]): Promise<T | null> {
+export async function getOne<T = unknown>(text: string, params?: unknown[]): Promise<T | null> {
   const result = await query<T>(text, params);
   return result[0] || null;
 }
 
-export async function transaction<T>(callback: (client: any) => Promise<T>): Promise<T> {
+export async function transaction<T>(callback: (client: import('pg').PoolClient) => Promise<T>): Promise<T> {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
