@@ -21,17 +21,17 @@
     "express-rate-limit": "^7.5.0",
     "express-validator": "^7.2.1",
     "winston": "^3.17.0",
-    "@mailportal/shared": "workspace:*"
+    "@mailportal/shared": "file:../../packages/shared"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/cors": "^2.8.17",
-    "@types/bcrypt": "^5.0.3",
+    "@types/bcrypt": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.10.5",
     "typescript": "^5.9.2",
     "tsx": "^4.19.2",
-    "@mailportal/typescript-config": "workspace:*",
-    "@mailportal/eslint-config": "workspace:*"
+    "@mailportal/typescript-config": "file:../../packages/typescript-config",
+    "@mailportal/eslint-config": "file:../../packages/eslint-config"
   }
 }
