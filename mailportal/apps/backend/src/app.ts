@@ -10,7 +10,7 @@ import userRoutes from './routes/user.routes';
 import domainRoutes from './routes/domain.routes';
 import emailAccountRoutes from './routes/email-account.routes';
 
-const app = express();
+const app: express.Application = express();
 
 // Security middleware
 app.use(helmet());

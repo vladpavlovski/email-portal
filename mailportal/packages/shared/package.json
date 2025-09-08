@@ -12,8 +12,8 @@
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
-    "@mailportal/eslint-config": "file:../eslint-config",
-    "@mailportal/typescript-config": "file:../typescript-config",
+    "@mailportal/eslint-config": "workspace:*",
+    "@mailportal/typescript-config": "workspace:*",
     "tsup": "^8.3.5",
     "typescript": "^5.9.2"
   },

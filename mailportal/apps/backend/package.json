@@ -21,6 +21,7 @@
     "express-rate-limit": "^7.5.0",
     "express-validator": "^7.2.1",
     "winston": "^3.17.0",
+    "zod": "^3.24.1",
     "@mailportal/shared": "workspace:*"
   },
   "devDependencies": {
@@ -28,6 +29,7 @@
     "@types/cors": "^2.8.17",
     "@types/bcrypt": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.7",
+    "@types/pg": "^8.11.0",
     "@types/node": "^22.10.5",
     "typescript": "^5.9.2",
     "tsx": "^4.19.2",

@@ -5,7 +5,7 @@ import { validate } from '../middleware/validation.middleware';
 import { loginSchema, registerUserSchema } from '@mailportal/shared';
 import { z } from 'zod';
 
-const router = Router();
+const router: Router = Router();
 
 // Public routes
 router.post('/login', validate(loginSchema), AuthController.login);

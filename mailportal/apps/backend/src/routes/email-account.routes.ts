@@ -5,7 +5,7 @@ import { validate } from '../middleware/validation.middleware';
 import { createEmailSchema } from '@mailportal/shared';
 import { UserRole } from '@mailportal/shared';
 
-const router = Router();
+const router: Router = Router();
 
 // User routes
 router.get('/my-accounts', authenticate, EmailAccountController.getUserEmailAccounts);

@@ -29,6 +29,7 @@ MailPortal is a modern web application that allows users to create and manage em
 - **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, React Router, React Query
 - **Backend**: Node.js, Express, TypeScript, PostgreSQL
 - **Authentication**: JWT tokens with role-based access control
+- **Package Manager**: pnpm with workspace support
 - **Monorepo**: Turborepo for efficient builds and development
 - **Deployment**: Docker, Docker Compose, optimized for Coolify
 
@@ -65,6 +66,40 @@ MailPortal is a modern web application that allows users to create and manage em
 
 ### Manual Setup
 
+**Prerequisites:**
+- Node.js 18 or higher
+- pnpm (install with `npm install -g pnpm`)
+- PostgreSQL database
+
+**Steps:**
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd mailportal
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
+
+3. **Set up environment**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
+
+4. **Initialize database**
+   ```bash
+   ./scripts/init-db.sh
+   ```
+
+5. **Start development servers**
+   ```bash
+   pnpm dev
+   ```
+
 See [docs/SETUP.md](docs/SETUP.md) for detailed manual setup instructions.
 
 ## Documentation
@@ -72,6 +107,28 @@ See [docs/SETUP.md](docs/SETUP.md) for detailed manual setup instructions.
 - [Setup Guide](docs/SETUP.md) - Detailed setup instructions
 - [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment options
 - [API Documentation](docs/API.md) - Complete API reference
+
+## Development Commands
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start all development servers
+pnpm dev
+
+# Build all packages
+pnpm build
+
+# Run linting
+pnpm lint
+
+# Run type checking
+pnpm check-types
+
+# Format code
+pnpm format
+```
 
 ## Project Structure
 
@@ -87,6 +144,8 @@ mailportal/
 │   └── typescript-config/ # Shared TypeScript configuration
 ├── scripts/             # Utility scripts
 ├── docs/               # Documentation
+├── pnpm-workspace.yaml  # pnpm workspace configuration
+├── turbo.json          # Turborepo configuration
 ├── docker-compose.yml   # Development Docker setup
 └── docker-compose.prod.yml # Production Docker setup
 ```
@@ -96,6 +155,19 @@ mailportal/
 After running `./scripts/init-db.sh`, you'll receive admin credentials. The default admin email is:
 - Email: `admin@mailportal.local`
 - Password: (generated during setup)
+
+## Recent Updates
+
+### Package Manager Migration
+- **Migrated from npm to pnpm**: Better workspace support and faster installs
+- **Added pnpm-workspace.yaml**: Proper workspace configuration for monorepo
+- **Updated all workspace dependencies**: Using `workspace:*` protocol for internal packages
+- **Fixed package naming consistency**: All packages now use `@mailportal/` namespace
+
+### Build System Improvements
+- **Fixed TypeScript configurations**: Resolved build errors and type checking issues
+- **Updated dependency versions**: Compatible versions for all packages
+- **Enhanced Turborepo setup**: Optimized build pipeline and caching
 
 ## Security Notes
 
